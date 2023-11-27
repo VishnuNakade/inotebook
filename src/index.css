@@ -5,6 +5,11 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  
+  background-image: url("bg.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 code {
@@ -14,4 +19,11 @@ code {
 
 i{
   cursor: pointer;
+}
+
+@media only screen and (max-width: 600px) {
+  body {
+    background-image: url("bgm.png");
+    background-position: center;
+  }
 }

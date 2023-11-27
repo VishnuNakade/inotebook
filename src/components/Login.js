@@ -1,11 +1,10 @@
 import React, {useState}  from 'react'
-import Alart from './Alart';
 import { useNavigate } from "react-router-dom";
 
 export default function Login(props) {
 
     const [credentials,setCredentials]=useState({email:"",password:""})
-    const navigate = useNavigate();
+    let navigate = useNavigate();
 
     const handleSubmit=async(e)=>{
         e.preventDefault(); //page reload na ho isliye 
@@ -22,19 +21,22 @@ export default function Login(props) {
           if (json.success){
             //Save the auth token and redirect
             localStorage.setItem('token',json.authtoken);
+            props.showAlart("Logged in Successfuly","success")
             navigate("/");
+            
           }
           else{
-            alert("Invalid credentials")
+            props.showAlart("Invalid Details","danger")
           }
     }
     const onChange=(e)=>{
         setCredentials({...credentials,[e.target.name]:e.target.value})
     }
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <div className="mb-3">
+        <div className="container mt-2">
+            <h2 className='my-3'>Login to continue to iNotebook</h2>
+            <form onSubmit={handleSubmit} >
+                <div className="my-3">
                     <label htmlFor="email" className="form-label">Email address</label>
                     <input type="email" className="form-control" id="email" name="email" value={credentials.email} onChange={onChange} aria-describedby="emailHelp" />
                     <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>

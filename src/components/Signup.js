@@ -1,10 +1,10 @@
 import React,{useState} from 'react'
 import { useNavigate } from "react-router-dom";
 
-export default function Signup() {
+export default function Signup(props) {
 
   const [credentials, setCredentials] = useState({ name:"", email: "", password: "", cpassword:""})
-  const navigate = useNavigate();
+  let navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault(); //page reload na ho isliye 
@@ -24,9 +24,10 @@ export default function Signup() {
       //Save the auth token and redirect
       localStorage.setItem('token', json.authtoken);
       navigate("/");
+      props.showAlart("Account Created Successfuly","success")
     }
     else {
-      alert("Invalid credentials")
+      props.showAlart("Invalid Credentials","danger")
     }
   }
   const onChange = (e) => {
@@ -34,9 +35,10 @@ export default function Signup() {
   }
 
   return (
-    <div className="container">
+    <div className="container mt-2">
+      <h2 className='my-3'>Create an account to use iNotebook</h2>
       <form onSubmit={handleSubmit}>
-        <div className="mb-3">
+        <div className="my-3">
           <label htmlFor="name" className="form-label">Name</label>
           <input type="text" className="form-control" id="name" name="name" value={credentials.name}  onChange={onChange} aria-describedby="emailHelp" />
         </div>

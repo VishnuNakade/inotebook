@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useContext } from 'react'
 import noteContext from '../context/notes/noteContext'
 
-export default function AddNote() {
+export default function AddNote(props) {
     const context =useContext(noteContext)
     const {addNote}=context
 
@@ -12,6 +12,7 @@ export default function AddNote() {
         e.preventDefault(); //page reload na ho isliye 
         addNote(note.title,note.discription,note.tag);
         setNote({title:"",discription:"",tag:""}) // submit karne ke phirse fild khali ho jaye
+        props.showAlart("Added Successfuly","success")
     }
     const onChange=(e)=>{
         setNote({...note,[e.target.name]:e.target.value})

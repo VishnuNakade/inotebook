@@ -3,13 +3,19 @@ import { useContext } from 'react'
 import noteContext from '../context/notes/noteContext'
 import Noteitem from './Noteitem'
 import AddNote from './AddNote'
+import { useNavigate } from "react-router-dom";
 
-export default function Notes() {
-
+export default function Notes(props) {
   const context = useContext(noteContext)
+  let navigate = useNavigate();
   const { notes, getNotes, editNote} = context
   useEffect(() => {
-    getNotes()
+    if(localStorage.getItem('token')){
+      getNotes()
+    }
+    else{
+      navigate("/login");
+    }
   }, [])
 
   
@@ -25,6 +31,7 @@ export default function Notes() {
   const handleClick = (e) => {
     editNote(note.id, note.etitle, note.ediscription, note.etag)
     refClose.current.click();
+    props.showAlart("Updated Successfuly","success");
   }
   const onChange = (e) => {
     setNote({ ...note, [e.target.name]: e.target.value })
@@ -32,9 +39,9 @@ export default function Notes() {
 
   return (
     <>
-      <AddNote />
+      <AddNote showAlart={props.showAlart}/>
 
-      {/* Adding bootstrap modal */}
+      {/* Adding bootstrap modal //for edit notes */}
 
       <button ref={ref} type="button" className="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#exampleModal">
         Launch demo modal
@@ -78,7 +85,7 @@ export default function Notes() {
           {notes.length==0 && 'No notes to display'}
         </div>
         {notes.map((notes) => {
-          return <Noteitem key={notes._id} note={notes} updateNote={updateNote} />
+          return <Noteitem key={notes._id} note={notes} updateNote={updateNote} showAlart={props.showAlart} />
         })}
       </div>
     </>
