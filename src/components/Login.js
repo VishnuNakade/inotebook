@@ -1,14 +1,15 @@
 import React, {useState}  from 'react'
 import { useNavigate } from "react-router-dom";
 
-export default function Login(props) {
 
+export default function Login(props) {
+    const host = "https://inotebook-backend-a8ok.onrender.com"
     const [credentials,setCredentials]=useState({email:"",password:""})
     let navigate = useNavigate();
 
     const handleSubmit=async(e)=>{
         e.preventDefault(); //page reload na ho isliye 
-        const response = await fetch("http://localhost:5000/api/auth/login", {
+        const response = await fetch(`${host}/api/auth/login`, {
             method: "POST", 
             headers: {
               "Content-Type": "application/json",

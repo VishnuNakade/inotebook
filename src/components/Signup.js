@@ -3,13 +3,15 @@ import { useNavigate } from "react-router-dom";
 
 export default function Signup(props) {
 
+  const host = "https://inotebook-backend-a8ok.onrender.com"
+  
   const [credentials, setCredentials] = useState({ name:"", email: "", password: "", cpassword:""})
   let navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault(); //page reload na ho isliye 
     const{name,email,password}=credentials; //credentialse se name, email, aur password bhar nikala (login me ye nahi kiya tha hamne body me hi likh diya tha)
-    const response = await fetch("http://localhost:5000/api/auth/createuser", {
+    const response = await fetch(`${host}/api/auth/createuser`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
