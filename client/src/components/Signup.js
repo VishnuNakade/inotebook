@@ -1,17 +1,20 @@
 import React,{useState} from 'react'
 import { useNavigate } from "react-router-dom";
 
+
 export default function Signup(props) {
 
-  const host = "https://inotebook-backend-a8ok.onrender.com"
+
+  const PORT=process.env.PORT;
   
   const [credentials, setCredentials] = useState({ name:"", email: "", password: "", cpassword:""})
   let navigate = useNavigate();
 
   const handleSubmit = async (e) => {
+
     e.preventDefault(); //page reload na ho isliye 
     const{name,email,password}=credentials; //credentialse se name, email, aur password bhar nikala (login me ye nahi kiya tha hamne body me hi likh diya tha)
-    const response = await fetch(`${host}/api/auth/createuser`, {
+    const response = await fetch("/api/auth/createuser", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -35,7 +38,7 @@ export default function Signup(props) {
   const onChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value })
   }
-
+ 
   return (
     <div className="container mt-2">
       <h2 className='my-3'>Create an account to use iNotebook</h2>

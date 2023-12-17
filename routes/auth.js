@@ -90,7 +90,7 @@ router.post('/login',[
    //if there are errors, return bad request and the errors 
    const errors = validationResult(req);
    if (!errors.isEmpty()) {
-     return res.status(400).json({ errors: errors.array() });
+     return res.status(400).json({success, errors: errors.array() });
    }
 
 
@@ -100,12 +100,12 @@ router.post('/login',[
     let user = await User.findOne({email});
     if(!user){
       success= false
-      return res.status(400).json({error:"Please try to login with carrect credentials"})
+      return res.status(400).json({success, error:"Please try to login with carrect credentials"})
     }
     const passwordcompare= await bcrypt.compare(password,user.password);
     if(!passwordcompare){
       success= false
-      return res.status(400).json({success,error:"Please try to login with carrect credentials"})
+      return res.status(400).json({success, error:"Please try to login with carrect credentials"})
     }
 
     //else

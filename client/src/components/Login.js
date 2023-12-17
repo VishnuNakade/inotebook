@@ -3,13 +3,16 @@ import { useNavigate } from "react-router-dom";
 
 
 export default function Login(props) {
-    const host = "https://inotebook-backend-a8ok.onrender.com"
+
+
+    // const PORT=process.env. REACT_APP_PORT;
+
     const [credentials,setCredentials]=useState({email:"",password:""})
     let navigate = useNavigate();
 
     const handleSubmit=async(e)=>{
         e.preventDefault(); //page reload na ho isliye 
-        const response = await fetch(`${host}/api/auth/login`, {
+        const response = await fetch("/api/auth/login", {
             method: "POST", 
             headers: {
               "Content-Type": "application/json",
